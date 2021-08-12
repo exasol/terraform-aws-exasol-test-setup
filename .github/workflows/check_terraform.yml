@@ -17,8 +17,8 @@ jobs:
           tflint_version: v0.31.0
       - name: Run TFlint
         run: |
-          tflint --init
-          tflint -f compact
+          tflint --enable-plugin aws --init
+          tflint --enable-plugin aws -f compact
       - name: Validate Terraform
         run: |
           terraform init
