@@ -1,6 +1,6 @@
 # Terraform AWS Exasol Test Setup
 
-[![Build Status](https://github.com/exasol/terraform-aws-exasol-test-setup/actions/workflows/ci-build.yml/badge.svg)](https://github.com/exasol/terraform-aws-exasol-test-setup/actions/workflows/ci-build.yml)
+[![Build Status](https://github.com/exasol/terraform-aws-exasol-test-setup/actions/workflows/check_terraform.yml/badge.svg)](https://github.com/exasol/terraform-aws-exasol-test-setup/actions/workflows/check_terraform.yml)
 [![GitHub Latest Release][gh-release-badge]][gh-release-link]
 ![Terraform Version][terraform-version]
 
