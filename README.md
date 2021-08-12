@@ -53,7 +53,7 @@ By that, this module allows you to quickly create an Exasol cluster for testing.
 * After that you can connect to the cluster. You can find the credentials in `generated/setEnv.sh`. You can simply execute `. generated/setEnv.sh` to set the credentials as environment variables.
 
 <!-- @formatter:off -->
-[gh-release-badge]: https://img.shields.io/github/tag/exasol/terraform-aws-exasol.svg?label=latest
-[gh-release-link]: https://github.com/exasol/terraform-aws-exasol/releases/latest
+[gh-release-badge]: https://img.shields.io/github/tag/exasol/terraform-aws-exasol-test-setup.svg?label=latest
+[gh-release-link]: https://github.com/exasol/terraform-aws-exasol-test-setup/releases/latest
 [terraform-version]: https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg
 [aws-cli]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
