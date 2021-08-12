@@ -12,7 +12,7 @@ This module is based on [terraform-aws-exasol](https://github.com/exasol/terrafo
 * Use random generated passwords
 * Create a VPC, Subnet, and Security Group
 * Generate an SSH key for public key authentication
-* Write the credentials and keys on local disc
+* Write the credentials and keys on local disk
 
 By that, this module allows you to quickly create an Exasol cluster for testing.
 
@@ -30,13 +30,13 @@ By that, this module allows you to quickly create an Exasol cluster for testing.
     deputy = "<DEPUTY_EMAIL>"
     datanode_count = 1
     project = "<PROJECT_SHORT_TAG>"
-   license = "./exasolution.lic"
+    license = "./exasolution.lic"
   }
   ```
 
   The value of `owner` and `deputy` will be added to all tags as `exa:owner` and `exa:deputy`. By that you know whom this cluster belongs to.
 
-* Create a .gitignore file in this directory
+* Create a `.gitignore` file in the current directory
 
   ```gitignore
   terraform.tfstate
@@ -50,18 +50,10 @@ By that, this module allows you to quickly create an Exasol cluster for testing.
   ```
 * Get an Exasol license and save it as `exasolution.lic`
 * Now run `terraform init` and `terraform apply`. Terraform will now create the cluster. That takes about half an hour.
-* Now you can connect to the cluster. You can find the credentials in `generated/setEnv.sh`. You can simply execute `. generated/setEnv.sh` to set the credentials as environment variables.
+* After that you can connect to the cluster. You can find the credentials in `generated/setEnv.sh`. You can simply execute `. generated/setEnv.sh` to set the credentials as environment variables.
 
-[travis-badge]: https://travis-ci.com/exasol/terraform-aws-exasol.svg?branch=main
-
-[travis-link]: https://travis-ci.com/exasol/terraform-aws-exasol
-
+<!-- @formatter:off -->
 [gh-release-badge]: https://img.shields.io/github/tag/exasol/terraform-aws-exasol.svg?label=latest
-
 [gh-release-link]: https://github.com/exasol/terraform-aws-exasol/releases/latest
-
 [terraform-version]: https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg
-
-[terraform-install]: https://www.terraform.io/downloads.html
-
 [aws-cli]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html

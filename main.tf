@@ -24,7 +24,7 @@ resource "aws_subnet" "subnet" {
 }
 
 
-resource "aws_default_route_table" "my_routing_table" {
+resource "aws_default_route_table" "routing_table" {
   default_route_table_id = aws_vpc.vpc.default_route_table_id
   route {
     cidr_block = "0.0.0.0/0"
@@ -130,7 +130,7 @@ module "exasol" {
   version                         = "1.0.1"
   cluster_name                    = "${local.project_tag}-exasol-cluster"
   database_name                   = "exadb"
-  ami_image_name                  = "Exasol-R7.0.8-BYOL"
+  ami_image_name                  = var.exasol_image
   sys_user_password               = random_password.exasol_sys_password.result
   admin_user_password             = random_password.exasol_admin_password.result
   management_server_instance_type = "m5.large"

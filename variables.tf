@@ -33,3 +33,9 @@ variable "license" {
   description = "A path to license file that can be used with Bring Your Own License (BYOL) installation."
   type        = string
 }
+
+variable "exasol_image" {
+  description = "An Exasol AMI image name. For example, 'R6.1.5-PAYG' or 'R6.2.1-BYOL'."
+  type        = string
+  default     = "Exasol-R7.0.11-BYOL"
+}
