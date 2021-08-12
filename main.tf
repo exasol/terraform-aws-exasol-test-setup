@@ -1,16 +1,25 @@
+resource "random_password" "unique_id" {
+  length      = 4
+  min_upper   = 1
+  min_lower   = 1
+  min_numeric = 1
+  special     = false
+}
+
 locals {
-  project_tag = replace(var.project, " ", "-")
+  id          = "${var.project}-${random_password.unique_id.result}"
+  project_tag = replace(local.id, " ", "-")
   tags = merge(var.additional_tags, {
     "exa:owner" : var.owner,
     "exa:deputy" : var.deputy
-    "exa:project" : var.project,
+    "exa:project" : local.id,
   })
 }
 
 resource "aws_vpc" "vpc" {
   cidr_block = "10.0.0.0/16"
   tags = merge(local.tags, {
-    "Name" : "VPC for ${var.project}"
+    "Name" : "VPC for ${local.id}"
   })
 }
 
@@ -19,7 +28,7 @@ resource "aws_subnet" "subnet" {
   cidr_block = "10.0.0.0/24"
 
   tags = merge(local.tags, {
-    "Name" : "Subnet for ${var.project}"
+    "Name" : "Subnet for ${local.id}"
   })
 }
 
@@ -31,7 +40,7 @@ resource "aws_default_route_table" "routing_table" {
     gateway_id = aws_internet_gateway.gw.id
   }
   tags = merge(local.tags, {
-    "Name" : "Route Table for ${var.project}"
+    "Name" : "Route Table for ${local.id}"
   })
 }
 
@@ -74,7 +83,7 @@ resource "aws_security_group" "exasol_db_security_group" {
   }
 
   tags = merge(local.tags, {
-    "Name" : "Security Group for Exasol cluster for ${var.project}"
+    "Name" : "Security Group for Exasol cluster for ${local.id}"
   })
 }
 
@@ -84,13 +93,15 @@ resource "tls_private_key" "ssh_key" {
 }
 
 resource "local_file" "ssh_private_key" {
-  content  = tls_private_key.ssh_key.private_key_pem
-  filename = "generated/exasol_cluster_ssh_key"
+  content         = tls_private_key.ssh_key.private_key_pem
+  filename        = "generated/exasol_cluster_ssh_key"
+  file_permission = "0600"
 }
 
 resource "local_file" "ssh_public_key" {
-  content  = tls_private_key.ssh_key.public_key_openssh
-  filename = "generated/exasol_cluster_ssh_key.pub"
+  content         = tls_private_key.ssh_key.public_key_openssh
+  filename        = "generated/exasol_cluster_ssh_key.pub"
+  file_permission = "0600"
 }
 
 resource "aws_key_pair" "ssh_key" {
@@ -102,7 +113,7 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.vpc.id
 
   tags = merge(local.tags, {
-    "Name" : "Gateway for Exasol cluster for ${var.project}"
+    "Name" : "Gateway for Exasol cluster for ${local.id}"
   })
 }
 
@@ -145,15 +156,15 @@ module "exasol" {
   security_group_id = aws_security_group.exasol_db_security_group.id
 
   # Variables used in tags.
-  project      = var.project
-  project_name = var.project
+  project      = local.id
+  project_name = local.id
   owner        = var.owner
   environment  = "dev"
   license      = var.license
 }
 
 resource "local_file" "foo" {
-  content  = <<EOT
+  content         = <<EOT
 export EXASOL_DATANODE_IP="${module.exasol.first_datanode_ip}"
 export EXASOL_MANAGEMENT_IP="${module.exasol.management_server_ip}"
 export EXASOL_SSH_PORT=22
@@ -163,5 +174,6 @@ export EXASOL_ADMIN_USER="admin"
 export EXASOL_ADMIN_PASS="${random_password.exasol_admin_password.result}"
 export EXASOL_TEST_BACKEND="aws"
   EOT
-  filename = "generated/setEnv.sh"
+  filename        = "generated/setEnv.sh"
+  file_permission = "0700"
 }
