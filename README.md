@@ -25,7 +25,8 @@ By that, this module allows you to quickly create an Exasol cluster for testing.
     region = "eu-central-1"
   }
   module "exasol_setup" {
-    source = "../../terraform-aws-test-setup"
+    source  = "exasol/exasol-test-setup/aws"
+    version = "<LATEST VERSION>"
     owner = "<YOU_EMAIL>"
     deputy = "<DEPUTY_EMAIL>"
     datanode_count = 1
