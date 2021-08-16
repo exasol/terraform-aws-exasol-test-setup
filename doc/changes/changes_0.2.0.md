@@ -1,4 +1,4 @@
-# terraform-aws-exasol-test-setup 0.1.1, released 2021-08-16
+# terraform-aws-exasol-test-setup 0.2.0, released 2021-08-16
 
 Code name: Added scripts for connecting
 
