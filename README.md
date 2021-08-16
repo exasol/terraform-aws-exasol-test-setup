@@ -53,6 +53,16 @@ By that, this module allows you to quickly create an Exasol cluster for testing.
 * Now run `terraform init` and `terraform apply`. Terraform will now create the cluster. That takes about half an hour.
 * After that you can connect to the cluster. You can find the credentials in `generated/setEnv.sh`. You can simply execute `. generated/setEnv.sh` to set the credentials as environment variables.
 
+### Accessing the database
+
+This module only exposes the ssh-port (and currently 443 due to a limitation in terraform-aws-exasol). That means that you and attackers can't directly access the SQL interface from outside the VPC. So if you want to connect to the database from you PC you need a ssh-tunnel.
+
+The module generates some script to set up these tunnels:
+
+* `generated/sshTunnelAdminPage.sh`: Create a ssh tunnel for ExaOperation. You can connect to localhost:443 afterwards.
+* `generated/sshTunnelSql.sh`: Create a ssh tunnel for the SQL interface. You can connect to localhost:8562 afterwards.
+* `sshToCluster.sh`: Just opens a ssh connection so that you can run commands in the database.
+
 <!-- @formatter:off -->
 [gh-release-badge]: https://img.shields.io/github/tag/exasol/terraform-aws-exasol-test-setup.svg?label=latest
 [gh-release-link]: https://github.com/exasol/terraform-aws-exasol-test-setup/releases/latest
