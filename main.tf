@@ -163,7 +163,7 @@ module "exasol" {
   license      = var.license
 }
 
-resource "local_file" "foo" {
+resource "local_file" "set_env_script" {
   content         = <<EOT
 export EXASOL_DATANODE_IP="${module.exasol.first_datanode_ip}"
 export EXASOL_MANAGEMENT_IP="${module.exasol.management_server_ip}"
@@ -175,5 +175,37 @@ export EXASOL_ADMIN_PASS="${random_password.exasol_admin_password.result}"
 export EXASOL_TEST_BACKEND="aws"
   EOT
   filename        = "generated/setEnv.sh"
+  file_permission = "0700"
+}
+
+resource "local_file" "ssh_tunnel_admin_page_script" {
+  content         = <<EOT
+#!/bin/bash
+./setEnv.sh
+echo "Connect now to localhost:443"
+ssh -i exasol_cluster_ssh_key "ec2-user@$EXASOL_MANAGEMENT_IP" -L 443:localhost:443
+  EOT
+  filename        = "generated/sshTunnelAdminPage.sh"
+  file_permission = "0700"
+}
+
+resource "local_file" "ssh_tunnel_sql_script" {
+  content         = <<EOT
+#!/bin/bash
+./setEnv.sh
+echo "Connect now to localhost:8562"
+ssh -i exasol_cluster_ssh_key "ec2-user@$EXASOL_MANAGEMENT_IP" -L 8563:n11:8563
+  EOT
+  filename        = "generated/sshTunnelSql.sh"
+  file_permission = "0700"
+}
+
+resource "local_file" "ssh_script" {
+  content         = <<EOT
+#!/bin/bash
+./setEnv.sh
+ssh -i exasol_cluster_ssh_key "ec2-user@$EXASOL_MANAGEMENT_IP"
+  EOT
+  filename        = "generated/ssh.sh"
   file_permission = "0700"
 }
