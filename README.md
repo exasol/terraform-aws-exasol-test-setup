@@ -51,7 +51,7 @@ By that, this module allows you to quickly create an Exasol cluster for testing.
   ```
 * Get an Exasol license and save it as `exasolution.lic`
 * Now run `terraform init` and `terraform apply`. Terraform will now create the cluster. That takes about half an hour.
-* After that you can connect to the cluster. You can find the credentials in `generated/setEnv.sh`. You can simply execute `. generated/setEnv.sh` to set the credentials as environment variables.
+* After that you can connect to the cluster. You can find the credentials in `generated/testConfig.json`.
 
 ### Accessing the database
 
