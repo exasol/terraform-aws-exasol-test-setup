@@ -163,27 +163,29 @@ module "exasol" {
   license      = var.license
 }
 
-resource "local_file" "set_env_script" {
+resource "local_file" "test_config" {
   content         = <<EOT
-set -euo pipefail
-export EXASOL_DATANODE_IP="${module.exasol.first_datanode_ip}"
-export EXASOL_MANAGEMENT_IP="${module.exasol.management_server_ip}"
-export EXASOL_SSH_PORT=22
-export EXASOL_USER="sys"
-export EXASOL_PASS="${random_password.exasol_sys_password.result}"
-export EXASOL_ADMIN_USER="admin"
-export EXASOL_ADMIN_PASS="${random_password.exasol_admin_password.result}"
-export EXASOL_TEST_BACKEND="aws"
+{
+  "dataNodeAddress": "${module.exasol.first_datanode_ip}",
+  "managementNodeAddress": "${module.exasol.management_server_ip}",
+  "sshPort": 22,
+  "sshKey": "./exasol_cluster_ssh_key",
+  "sqlUser": "sys",
+  "sqlPass": "${random_password.exasol_sys_password.result}",
+  "adminUser": "admin",
+  "adminPass": "${random_password.exasol_admin_password.result}"
+}
   EOT
-  filename        = "generated/setEnv.sh"
-  file_permission = "0700"
+  filename        = "generated/testConfig.json"
+  file_permission = "0600"
 }
 
 resource "local_file" "ssh_tunnel_admin_page_script" {
   content         = <<EOT
 #!/bin/bash
 set -euo pipefail
-./setEnv.sh
+scriptDir=$(dirname "$0")
+EXASOL_MANAGEMENT_IP=$(jq -r .managementNodeAddress < "$scriptDir/testConfig.json")
 echo "Connect now to localhost:443"
 ssh -i exasol_cluster_ssh_key "ec2-user@$EXASOL_MANAGEMENT_IP" -L 443:localhost:443
   EOT
@@ -195,7 +197,8 @@ resource "local_file" "ssh_tunnel_sql_script" {
   content         = <<EOT
 #!/bin/bash
 set -euo pipefail
-./setEnv.sh
+scriptDir=$(dirname "$0")
+EXASOL_MANAGEMENT_IP=$(jq -r .managementNodeAddress < "$scriptDir/testConfig.json")
 echo "Connect now to localhost:8562"
 ssh -i exasol_cluster_ssh_key "ec2-user@$EXASOL_MANAGEMENT_IP" -L 8563:n11:8563
   EOT
@@ -207,7 +210,8 @@ resource "local_file" "ssh_script" {
   content         = <<EOT
 #!/bin/bash
 set -euo pipefail
-./setEnv.sh
+scriptDir=$(dirname "$0")
+EXASOL_MANAGEMENT_IP=$(jq -r .managementNodeAddress < "$scriptDir/testConfig.json")
 ssh -i exasol_cluster_ssh_key "ec2-user@$EXASOL_MANAGEMENT_IP"
   EOT
   filename        = "generated/sshToCluster.sh"
