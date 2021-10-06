@@ -144,8 +144,8 @@ module "exasol" {
   ami_image_name                  = var.exasol_image
   sys_user_password               = random_password.exasol_sys_password.result
   admin_user_password             = random_password.exasol_admin_password.result
-  management_server_instance_type = "m5.large"
-  datanode_instance_type          = "m5.large"
+  management_server_instance_type = var.management_server_instance_type
+  datanode_instance_type          = var.datanode_instance_type
   datanode_count                  = var.datanode_count
   standbynode_count               = "0"
   public_ip                       = true
