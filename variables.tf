@@ -39,3 +39,15 @@ variable "exasol_image" {
   type        = string
   default     = "Exasol-R7.0.11-BYOL"
 }
+
+variable "datanode_instance_type" {
+  default     = "m5.large"
+  description = "An EC2 instance type for the Exasol datanodes."
+  type        = string
+}
+
+variable "management_server_instance_type" {
+  default     = "m5.large"
+  description = "An EC2 instance type for the Exasol management server."
+  type        = string
+}
