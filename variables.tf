@@ -6,10 +6,10 @@ variable "deputy" {
   description = "This property will be set to the exa:deputy"
 }
 
-# Use a short project tag. Long tags will case the exasol cluster creation to fail (see https://github.com/exasol/cloudformation-aws-exasol/issues/3)
+# Use a short project tag. Long tags will cause the exasol cluster creation to fail (see https://github.com/exasol/cloudformation-aws-exasol/issues/3)
 variable "project" {
   type        = string
-  description = "project short tag. Warning: Use a short project tag. Long tags will case the exasol cluster creation to fail (see https://github.com/exasol/cloudformation-aws-exasol/issues/3)"
+  description = "project short tag. Warning: Use a short project tag. Long tags will cause the exasol cluster creation to fail (see https://github.com/exasol/cloudformation-aws-exasol/issues/3)"
   validation {
     condition     = length(var.project) < 15
     error_message = "Project name was too long. Please use a shorter one."
