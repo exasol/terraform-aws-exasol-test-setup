@@ -128,7 +128,7 @@ resource "random_password" "exasol_sys_password" {
 
 resource "random_password" "exasol_admin_password" {
   length = 20
-  number = true
+  numeric = true
   # with some special chars login does not work
   special     = false
   min_upper   = 1
