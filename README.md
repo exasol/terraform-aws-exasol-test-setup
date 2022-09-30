@@ -7,6 +7,8 @@
 A [Terraform](https://www.terraform.io) module to create an
 [Exasol](https://www.exasol.com) cluster **with default settings for testing** on [Amazon AWS](https://aws.amazon.com/).
 
+See [Terraform module](https://registry.terraform.io/modules/exasol/exasol-test-setup/aws/latest).
+
 This module is based on [terraform-aws-exasol](https://github.com/exasol/terraform-aws-exasol/). In addition, it adds the following functionality:
 
 * Use random generated passwords
