@@ -37,7 +37,7 @@ variable "license" {
 variable "exasol_image" {
   description = "An Exasol AMI image name. For example, 'R6.1.5-PAYG' or 'R6.2.1-BYOL'."
   type        = string
-  default     = "Exasol-R7.1.13-BYOL"
+  default     = "Exasol-R7.1.17-BYOL"
 }
 
 variable "datanode_instance_type" {
