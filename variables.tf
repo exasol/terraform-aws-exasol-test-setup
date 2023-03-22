@@ -1,8 +1,10 @@
 variable "owner" {
+  type        = string
   description = "This property will be set to the exa:owner tag"
 }
 
 variable "deputy" {
+  type        = string
   description = "This property will be set to the exa:deputy"
 }
 
