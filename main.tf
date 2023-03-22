@@ -73,9 +73,9 @@ resource "aws_security_group" "exasol_db_security_group" {
   }
 
   egress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -124,7 +124,7 @@ resource "random_password" "exasol_sys_password" {
 }
 
 resource "random_password" "exasol_admin_password" {
-  length = 20
+  length  = 20
   numeric = true
   # with some special chars login does not work
   special     = false
