@@ -5,3 +5,7 @@ Code name: Upgrade to latest Exasol version
 ## Summary
 
 This release upgrades the Exasol version to `Exasol-R7.1.17-BYOL` as the AMI for `Exasol-R7.0.11-BYOL` is no longer available.
+
+## Bugfixes
+
+* #16: Upgraded to latest available Exasol AMI
