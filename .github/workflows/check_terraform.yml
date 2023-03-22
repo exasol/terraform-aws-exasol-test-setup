@@ -21,6 +21,7 @@ jobs:
           tflint -f compact
       - name: Validate Terraform
         run: |
+          terraform --version
           terraform init
           terraform validate
       - name: Check formatting
