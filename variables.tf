@@ -1,15 +1,17 @@
 variable "owner" {
+  type        = string
   description = "This property will be set to the exa:owner tag"
 }
 
 variable "deputy" {
+  type        = string
   description = "This property will be set to the exa:deputy"
 }
 
-# Use a short project tag. Long tags will case the exasol cluster creation to fail (see https://github.com/exasol/cloudformation-aws-exasol/issues/3)
+# Use a short project tag. Long tags will cause the exasol cluster creation to fail (see https://github.com/exasol/cloudformation-aws-exasol/issues/3)
 variable "project" {
   type        = string
-  description = "project short tag. Warning: Use a short project tag. Long tags will case the exasol cluster creation to fail (see https://github.com/exasol/cloudformation-aws-exasol/issues/3)"
+  description = "project short tag. Warning: Use a short project tag. Long tags will cause the exasol cluster creation to fail (see https://github.com/exasol/cloudformation-aws-exasol/issues/3)"
   validation {
     condition     = length(var.project) < 15
     error_message = "Project name was too long. Please use a shorter one."
@@ -37,7 +39,7 @@ variable "license" {
 variable "exasol_image" {
   description = "An Exasol AMI image name. For example, 'R6.1.5-PAYG' or 'R6.2.1-BYOL'."
   type        = string
-  default     = "Exasol-R7.0.11-BYOL"
+  default     = "Exasol-R7.1.17-BYOL"
 }
 
 variable "datanode_instance_type" {

@@ -54,8 +54,7 @@ resource "aws_security_group" "exasol_db_security_group" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [
-    "0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
@@ -63,8 +62,7 @@ resource "aws_security_group" "exasol_db_security_group" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = [
-    "0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
@@ -75,11 +73,10 @@ resource "aws_security_group" "exasol_db_security_group" {
   }
 
   egress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    cidr_blocks = [
-    "0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = merge(local.tags, {
@@ -127,8 +124,8 @@ resource "random_password" "exasol_sys_password" {
 }
 
 resource "random_password" "exasol_admin_password" {
-  length = 20
-  number = true
+  length  = 20
+  numeric = true
   # with some special chars login does not work
   special     = false
   min_upper   = 1
@@ -138,7 +135,7 @@ resource "random_password" "exasol_admin_password" {
 
 module "exasol" {
   source                          = "exasol/exasol/aws"
-  version                         = "1.0.1"
+  version                         = "1.0.2"
   cluster_name                    = "${local.project_tag}-exasol-cluster"
   database_name                   = "exadb"
   ami_image_name                  = var.exasol_image
@@ -186,8 +183,9 @@ resource "local_file" "ssh_tunnel_admin_page_script" {
 set -euo pipefail
 scriptDir=$(dirname "$0")
 EXASOL_MANAGEMENT_IP=$(jq -r .managementNodeAddress < "$scriptDir/testConfig.json")
+SSH_KEY=$(jq -r .sshKey < "$scriptDir/testConfig.json")
 echo "Connect now to localhost:443"
-ssh -i exasol_cluster_ssh_key "ec2-user@$EXASOL_MANAGEMENT_IP" -L 443:localhost:443
+ssh -i "$SSH_KEY" "ec2-user@$EXASOL_MANAGEMENT_IP" -L 443:localhost:443
   EOT
   filename        = "generated/sshTunnelAdminPage.sh"
   file_permission = "0700"
@@ -199,8 +197,9 @@ resource "local_file" "ssh_tunnel_sql_script" {
 set -euo pipefail
 scriptDir=$(dirname "$0")
 EXASOL_MANAGEMENT_IP=$(jq -r .managementNodeAddress < "$scriptDir/testConfig.json")
+SSH_KEY=$(jq -r .sshKey < "$scriptDir/testConfig.json")
 echo "Connect now to localhost:8562"
-ssh -i exasol_cluster_ssh_key "ec2-user@$EXASOL_MANAGEMENT_IP" -L 8563:n11:8563
+ssh -i "$SSH_KEY" "ec2-user@$EXASOL_MANAGEMENT_IP" -L 8563:n11:8563
   EOT
   filename        = "generated/sshTunnelSql.sh"
   file_permission = "0700"
@@ -212,7 +211,8 @@ resource "local_file" "ssh_script" {
 set -euo pipefail
 scriptDir=$(dirname "$0")
 EXASOL_MANAGEMENT_IP=$(jq -r .managementNodeAddress < "$scriptDir/testConfig.json")
-ssh -i exasol_cluster_ssh_key "ec2-user@$EXASOL_MANAGEMENT_IP"
+SSH_KEY=$(jq -r .sshKey < "$scriptDir/testConfig.json")
+ssh -i "$SSH_KEY" "ec2-user@$EXASOL_MANAGEMENT_IP"
   EOT
   filename        = "generated/sshToCluster.sh"
   file_permission = "0700"

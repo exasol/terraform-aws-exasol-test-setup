@@ -8,19 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v1
+        uses: terraform-linters/setup-tflint@v3
         with:
-          tflint_version: v0.31.0
+          tflint_version: v0.45.0
       - name: Run TFlint
         run: |
-          tflint --enable-plugin aws --init
-          tflint --enable-plugin aws -f compact
+          tflint --init
+          tflint -f compact
       - name: Validate Terraform
         run: |
+          terraform --version
           terraform init
           terraform validate
       - name: Check formatting
