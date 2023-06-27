@@ -68,7 +68,7 @@ The module generates some script to set up these tunnels:
 ## Additional Information
 
 - [Changelog](doc/changes/changelog.md)
-- [Developer Guide](doc/developers_guide/developers_guide.md)
+- [Developer Guide](doc/developer_guide/developer_guide.md)
 
 <!-- @formatter:off -->
 [gh-release-badge]: https://img.shields.io/github/tag/exasol/terraform-aws-exasol-test-setup.svg?label=latest
