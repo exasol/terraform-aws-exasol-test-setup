@@ -65,6 +65,11 @@ The module generates some script to set up these tunnels:
 * `generated/sshTunnelSql.sh`: Create a ssh tunnel for the SQL interface. You can connect to localhost:8562 afterwards.
 * `sshToCluster.sh`: Just opens a ssh connection so that you can run commands in the database.
 
+## Additional Information
+
+- [Changelog](doc/changes/changelog.md)
+- [Developer Guide](doc/developers_guide/developers_guide.md)
+
 <!-- @formatter:off -->
 [gh-release-badge]: https://img.shields.io/github/tag/exasol/terraform-aws-exasol-test-setup.svg?label=latest
 [gh-release-link]: https://github.com/exasol/terraform-aws-exasol-test-setup/releases/latest
