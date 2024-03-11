@@ -28,7 +28,7 @@ By that, this module allows you to quickly create an Exasol cluster for testing.
   }
   module "exasol_setup" {
     source  = "exasol/exasol-test-setup/aws"
-    version = "<LATEST VERSION>"
+    version = "<LATEST VERSION>" # Replace this with the latest version of terraform-aws-exasol-test-setup.
     owner = "<YOU_EMAIL>"
     deputy = "<DEPUTY_EMAIL>"
     datanode_count = 1
@@ -53,6 +53,11 @@ By that, this module allows you to quickly create an Exasol cluster for testing.
   ```
 * Get an Exasol license and save it as `exasolution.lic`
 * Now run `terraform init` and `terraform apply`. Terraform will now create the cluster. That takes about half an hour.
+
+    Additionally it might be required to specify your AWS profile selected in file `~/.aws/config`:
+    ```sh
+    AWS_DEFAULT_PROFILE=<NAME OF PROFILE> terraform apply
+    ```
 * After that you can connect to the cluster. You can find the credentials in `generated/testConfig.json`.
 
 ### Accessing the database

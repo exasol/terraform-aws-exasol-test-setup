@@ -1,31 +1,37 @@
 name: Check Terraform
 
 on:
-  - push
+  push:
+    branches: ["main"]
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: "bash"
+    permissions:
+      contents: read
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Install terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.5.1
       - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v3
+        uses: terraform-linters/setup-tflint@v4
         with:
-          tflint_version: v0.47.0
+          tflint_version: v0.50.3
+      - name: Log Terraform version
+        run: |
+          terraform version
+          tflint --version
       - name: Run TFlint
         run: |
           tflint --init
           tflint -f compact
       - name: Validate Terraform
         run: |
-          terraform --version
           terraform init
           terraform validate
       - name: Check formatting
