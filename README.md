@@ -62,13 +62,13 @@ By that, this module allows you to quickly create an Exasol cluster for testing.
 
 ### Accessing the database
 
-This module only exposes the SSH port (and currently 443 due to a limitation in terraform-aws-exasol). That means that you and attackers can't directly access the SQL interface from outside the VPC. So if you want to connect to the database from you PC you need a SSH-tunnel.
+This module only exposes the SSH port (and currently 443 due to a limitation in terraform-aws-exasol). That means that you and attackers can't directly access the SQL interface from outside the VPC. So if you want to connect to the database from you PC you need an SSH-tunnel.
 
 The module generates some script to set up these tunnels:
 
-* `generated/sshTunnelAdminPage.sh`: Create a SSH tunnel for ExaOperation. You can connect to localhost:443 afterwards.
-* `generated/sshTunnelSql.sh`: Create a SSH tunnel for the SQL interface. You can connect to localhost:8562 afterwards.
-* `generated/sshToCluster.sh`: Just opens a SSH connection so that you can run commands in the database.
+* `generated/sshTunnelAdminPage.sh`: Create an SSH tunnel for ExaOperation. You can connect to localhost:443 afterwards.
+* `generated/sshTunnelSql.sh`: Create an SSH tunnel for the SQL interface. You can connect to localhost:8562 afterwards.
+* `generated/sshToCluster.sh`: Just opens an SSH connection so that you can run commands in the database.
 
 ## Additional Information
 
