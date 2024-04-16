@@ -184,8 +184,8 @@ set -euo pipefail
 scriptDir=$(dirname "$0")
 EXASOL_MANAGEMENT_IP=$(jq -r .managementNodeAddress < "$scriptDir/testConfig.json")
 SSH_KEY=$(jq -r .sshKey < "$scriptDir/testConfig.json")
-echo "Connect now to localhost:443"
-ssh -i "$SSH_KEY" "ec2-user@$EXASOL_MANAGEMENT_IP" -L 443:localhost:443
+echo "Connect now to localhost:1443"
+ssh -i "$SSH_KEY" "ec2-user@$EXASOL_MANAGEMENT_IP" -L 1443:localhost:443
   EOT
   filename        = "generated/sshTunnelAdminPage.sh"
   file_permission = "0700"
@@ -198,7 +198,7 @@ set -euo pipefail
 scriptDir=$(dirname "$0")
 EXASOL_MANAGEMENT_IP=$(jq -r .managementNodeAddress < "$scriptDir/testConfig.json")
 SSH_KEY=$(jq -r .sshKey < "$scriptDir/testConfig.json")
-echo "Connect now to localhost:8562"
+echo "Connect now to localhost:8563"
 ssh -i "$SSH_KEY" "ec2-user@$EXASOL_MANAGEMENT_IP" -L 8563:n11:8563
   EOT
   filename        = "generated/sshTunnelSql.sh"
