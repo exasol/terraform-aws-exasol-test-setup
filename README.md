@@ -33,7 +33,6 @@ By that, this module allows you to quickly create an Exasol cluster for testing.
     deputy = "<DEPUTY_EMAIL>"
     datanode_count = 1
     project = "<PROJECT_SHORT_TAG>"
-    license = "./exasolution.lic"
   }
   ```
 
@@ -51,7 +50,6 @@ By that, this module allows you to quickly create an Exasol cluster for testing.
   *.lock.hcl
   generated/
   ```
-* Get an Exasol license and save it as `exasolution.lic`
 * Now run `terraform init` and `terraform apply`. Terraform will now create the cluster. That takes about half an hour.
 
     Additionally it might be required to specify your AWS profile selected in file `~/.aws/config`:

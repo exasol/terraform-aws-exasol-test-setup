@@ -135,7 +135,7 @@ resource "random_password" "exasol_admin_password" {
 
 module "exasol" {
   source                          = "exasol/exasol/aws"
-  version                         = "1.0.4"
+  version                         = "2.0.0"
   cluster_name                    = "${local.project_tag}-exasol-cluster"
   database_name                   = "exadb"
   ami_image_name                  = var.exasol_image
@@ -157,7 +157,6 @@ module "exasol" {
   project_name = local.id
   owner        = var.owner
   environment  = "dev"
-  license      = var.license
 }
 
 resource "local_file" "test_config" {
