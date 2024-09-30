@@ -30,16 +30,10 @@ variable "datanode_count" {
   type        = number
 }
 
-variable "license" {
-  default     = null
-  description = "A path to license file that can be used with Bring Your Own License (BYOL) installation."
-  type        = string
-}
-
 variable "exasol_image" {
-  description = "An Exasol AMI image name. For example, 'R6.1.5-PAYG' or 'R6.2.1-BYOL'."
+  description = "An Exasol AMI image name. For example, 'Exasol-R7.1.26-PAYG'."
   type        = string
-  default     = "Exasol-R7.1.26-BYOL"
+  default     = "Exasol-R7.1.26-PAYG"
 }
 
 variable "datanode_instance_type" {

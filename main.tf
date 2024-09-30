@@ -157,7 +157,6 @@ module "exasol" {
   project_name = local.id
   owner        = var.owner
   environment  = "dev"
-  license      = var.license
 }
 
 resource "local_file" "test_config" {
