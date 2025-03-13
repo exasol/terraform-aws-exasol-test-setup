@@ -1,3 +1,8 @@
+> **🚨 This project has been archived!**
+> 
+> This means the repository is no longer maintained, and new features or fixes are not planned.
+
+
 # Terraform AWS Exasol Test Setup
 
 [![Build Status](https://github.com/exasol/terraform-aws-exasol-test-setup/actions/workflows/check_terraform.yml/badge.svg)](https://github.com/exasol/terraform-aws-exasol-test-setup/actions/workflows/check_terraform.yml)
